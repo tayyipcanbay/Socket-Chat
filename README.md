@@ -6,9 +6,9 @@
         `javac Client.java`
     </li>
     <li>
-        `java Server.java`
+        `java Server`
     </li>
     <li>
-        `java Client.java`
+        `java Client`
     </li>
 </ol>
