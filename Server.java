@@ -16,7 +16,7 @@ public class Server {
 
     // Sunucuyu başlatan metod
     public void startServer(int port) {
-        System.out.println("Chat Server is running...");
+        System.out.println("Sohbet Suncusu Koşuyor..... TUTUN!!");
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             while (true) {
@@ -31,7 +31,7 @@ public class Server {
                 String username = in.readLine();
                 connectedUsers.add(username);
                 // Yeni kullanıcı bağlandığında tüm kullanıcılara online kullanıcı listesini gönderen metodu çağırır
-                broadcast(username + " has joined the chat. ");
+                broadcast(username + " Gelmiş.Hoşgelmiş!! ");
 
                 // Yeni bir istemci için bir ClientHandler oluşturulur ve bu işlemleri yeni bir thread'da çalıştırır
                 ClientHandler clientHandler = new ClientHandler(clientSocket, out, in, username);
@@ -64,10 +64,10 @@ public class Server {
             try {
                 // Istemcinin IP adresini alır
                 String clientIP = socket.getInetAddress().getHostAddress();
-                System.out.println(username + " is connected from IP: " + clientIP);
+                System.out.println(username + " bağlandı.Şu IP üzerinden bağlanıyor: " + clientIP);
 
                 // Yeni kullanıcı bağlandığında tüm kullanıcılara online kullanıcı listesini gönderen metodu çağırır
-                broadcast("Online users: " + String.join(", ", connectedUsers));
+                broadcast("Çevrimiçi Kullanıcılar: " + String.join(", ", connectedUsers));
 
                 String message;
                 // Istemciden gelen mesajları dinleyen döngü
@@ -75,10 +75,10 @@ public class Server {
                     // Kullanıcının kendi mesajını göndermemesi için kontrol
                     if (message.equals("/online")) {
                         // Kullanıcı "/online" yazdığında o anda online olan kullanıcıları gönderen metodu çağırır
-                        out.println("Online users: " + String.join(", ", connectedUsers));
+                        out.println("Çevrimiçi Kullanıcılar: " + String.join(", ", connectedUsers));
                     } else if (message.equals("/help")) {
                         // Kullanıcı "/help" yazdığında yardım mesajını gönderen metodu çağırır
-                        out.println("Available commands: /online, /quit, /help, /private <username> <message>, /kick <username> <reason>");
+                        out.println("Yazabileceğin Komutlar: /online, /quit, /help, /private <username> <message>, /kick <username> <reason>");
                     } else if (message.startsWith("/kick")) {
                         // Kullanıcı "/kick" yazdığında işlemleri gerçekleştiren blok
                         String[] tokens = message.split(" ");
@@ -87,18 +87,18 @@ public class Server {
                         try {
                             // Kullanıcıyı kickleme işlemi
                             PrintWriter receiverWriter = clientWriters.get(connectedUsers.indexOf(receiver));
-                            receiverWriter.println("You have been kicked by " + username + " for " + reason);
+                            receiverWriter.println("Şu Adam Tarafından Atıldın: " + username + " Sebebi de bu : " + reason);
                             receiverWriter.close();
                         } catch (Exception e) {
                             // Kullanıcı çevrimiçi değilse uyarı mesajı gönderir
-                            out.println("User " + receiver + " is not online.");
+                            out.println("Kullanıcı " + receiver + " gitmiş. Bulamadık valla!");
                         }
                     } else if (message.equals("/admin")) {
                         // Kullanıcı "/admin" yazdığında admin mesajını gönderir
-                        out.println("You are an admin!");
+                        out.println("BABA GELDİ!!!");
                     } else if (message.equals("/quit")) {
                         // Kullanıcı "/quit" yazdığında bağlantıyı kapatır
-                        out.println("Bye bye!");
+                        out.println("Allaha Emanet!!!");
                         break;
                     } else if (message.startsWith("/private")) {
                         // Özel mesaj gönderme işlemleri
@@ -111,7 +111,7 @@ public class Server {
                             receiverWriter.println(username + " (private): " + privateMessage);
                         } catch (Exception e) {
                             // Alıcı çevrimiçi değilse uyarı mesajı gönderir
-                            out.println("User " + receiver + " is not online.");
+                            out.println("Kullanıcı " + receiver + " gitmiş. Bulamadık valla!");
                         }
                     } else if (!message.startsWith(username + ":")) {
                         // Diğer durumlarda mesajı tüm kullanıcılara yayınlayan metodu çağırır
@@ -124,7 +124,7 @@ public class Server {
                 // Kullanıcı çıkış yaptığında yapılacak temizlik işlemleri
                 connectedUsers.remove(username);
                 clientWriters.remove(out);
-                broadcast(username + " has left the chat. Online users: " + String.join(", ", connectedUsers));
+                broadcast(username + " çıktı. İçeride Kalanlar: " + String.join(", ", connectedUsers));
             }
         }
     }

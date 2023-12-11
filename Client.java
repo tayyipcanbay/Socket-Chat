@@ -21,7 +21,7 @@ public class Client {
             Scanner scanner = new Scanner(System.in)
         ) {
             // Kullanıcıdan kullanıcı adı alınır ve sunucuya gönderilir
-            System.out.print("Enter your username: ");
+            System.out.print("Kullanıcı Adınızı Giriniz: ");
             String username = scanner.nextLine();
             out.println(username);
 
@@ -35,9 +35,9 @@ public class Client {
                     while ((message = in.readLine()) != null) {
                         // Sunucudan gelen mesajı işler
 
-                        if (message.startsWith("Online users:")) {
+                        if (message.startsWith("Çevrimiçi Kullanıcılar")) {
                             // Eğer mesaj "Online users:" ile başlıyorsa, çevrimiçi kullanıcı listesini gösterir
-                            System.out.println("Online users: " + message.substring("Online users:".length()));
+                            System.out.println("Çevrimiçi Kullanıcılar: " + message.substring("Çevrimiçi Kullanıcılar:".length()));
                         } else {
                             // Diğer durumlarda gelen mesajı doğrudan ekrana yazdırır
                             System.out.println(message);
