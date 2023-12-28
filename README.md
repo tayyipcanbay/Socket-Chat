@@ -1,6 +1,6 @@
 # Socket
 
-This is a simple chat application implemented in Java. It consists of a server (Server.java) and a client (Client.java) that enable communication between multiple users.
+Our server, featuring threaded architecture, adeptly manages incoming connections, user interactions, and communication—ensuring optimal performance through parallel processing.
 
 ## Server
 
